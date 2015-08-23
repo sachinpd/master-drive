@@ -4,7 +4,7 @@ var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/masterdrive';
 
 var postDriveway = function(db, user, startDate, endDate, address, city, state, zipcode, callback, price) {
-	db.collection('driveways').insert( { "price": 100, "merchant_id": user, "address": address, "city": city, "zipcode": zipcode, "date_begin": parseInt(startDate), "date_end": parseInt(endDate), "photo_url": "http://www.angieslist.com/files/styles/no-dimensions/public/null/driveway_450.jpg?itok=xf2c0rip" } )
+	db.collection('driveways').insert( { "price": "100", "merchant_id": user, "address": address, "city": city, "zipcode": zipcode, "date_begin": parseInt(startDate), "date_end": parseInt(endDate), "photo_url": "http://www.angieslist.com/files/styles/no-dimensions/public/null/driveway_450.jpg?itok=xf2c0rip" } )
 };
 
 var findMyDriveways = function(db, user, callback) {
