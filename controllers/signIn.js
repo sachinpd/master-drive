@@ -61,8 +61,9 @@ exports.digits = function (req, res) {
   };
 
   var insertUserIfNotThere = function(db, fabric_id, callback) {
+  	console.log ("Finding fabric_id" + fabric_id);
 	var cursor = db.collection('users').find({"fabric_id": fabric_id});
-	console.log (db.collection('users').find({"fabric_id": fabric_id}).size())
+	//console.log (db.collection('users').find({"fabric_id": fabric_id}).size())
 	if (cursor.count() == 0) {
 		db.collection('users').insert( { "fabric_id": fabric_id });
 		console.log ("inserting. doesnt exist yet.")
