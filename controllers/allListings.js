@@ -17,6 +17,7 @@ var findDriveways = function(db, callback) {
    cursor.each(function(err, doc) {
       assert.equal(err, null);
       if (doc != null) {
+      	console.log("in here")
          console.dir(doc);
          callback(doc);
       } else {
