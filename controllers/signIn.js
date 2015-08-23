@@ -61,17 +61,16 @@ exports.digits = function (req, res) {
   };
 
   var insertUserIfNotThere = function(db, fabric_id, callback) {
-  	console.log ("Finding fabric_id" + fabric_id);
-	var cursor = db.collection('users').find({"fabric_id": fabric_id});
-	//console.log (db.collection('users').find({"fabric_id": fabric_id}).size())
-	if (cursor.count() == 0) {
-		db.collection('users').insert( { "fabric_id": fabric_id });
-		console.log ("inserting. doesnt exist yet.")
-
-	} else {
+  	console.log ("Finding fabric_id: " + fabric_id);
+	db.collection('users').findOne({"fabric_id": String(fabric_id)}, function (err, doc) {
+	if (doc) { 
 		console.log("already exists.")
+ 	} else {
+		console.log ("inserting. doesnt exist yet.")
+		db.collection('users').insert( { "fabric_id": fabric_id });
 	}
-	};
+	});
+ }
 
   // Perform the request to the Digits API.
   request.get(options, function (error, response, body) {
