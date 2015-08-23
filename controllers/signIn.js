@@ -61,23 +61,10 @@ exports.digits = function (req, res) {
   };
 
   var insertUserIfNotThere = function(db, fabric_id, callback) {
-  	db.collection("users").findAndModify(
-    { "fabric_id": fabric_id },     // query
-    [],               // represents a sort order if multiple matches
-    { },   // update statement
-    { new: true,
-    upsert: true },    // options - new to return the modified document
-    function(err,doc) {
-    	console.log("ERROR")
-    	console.log(err)
-    }
-);
-		// db.collection('driveways').insert( { "merchant_id": "1", "address": "111 addr", "city": "Berkeley", "zipcode": "94709", "date_begin": 1440476620, "date_end": 1440476820 } )
-		db.collection('users').findAndModify({
-		  query: { "fabric_id": fabric_id },
-		  new: true,   // return new doc if one is upserted
-		  upsert: true // insert the document if it does not exist
-		})
+		db.collection('users').insert( { "fabric_id": fabric_id },    
+		    function(err,doc) {
+		    	console.log(err);
+		    } )
 	};
 
   // Perform the request to the Digits API.
