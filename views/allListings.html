@@ -1,15 +1,27 @@
 <html>
 <head>
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="js/classie.js"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css" />
-
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+  <link rel="stylesheet" type="text/css" href="css/set1.css">
 </head>
 <body>
   <div class="container">
     <div class="background-video background-still"></div>
     <div class="content-container">
       <div class="content-bar trans">
+                  <span class="input input--hoshi">
+            <input class="input__field input__field--hoshi" type="text" id="zipcode" />
+            <label class="input__label input__label--hoshi" for="zipcode">
+              <span class="input__label-content input__label-content--hoshi">Zip Code</span>
+            </label>
+          </span>
         <div class="header-text" id="header-text">
           {{htmlToReturn}}
         </div>
@@ -27,10 +39,32 @@
       success: function(data) {
         console.log(data)
       $("#header-text").html(data.htmlToReturn);
-      $.getScript("https://www.simplify.com/commerce/simplify.pay.js");	
-      },
+      $.getScript("https://www.simplify.com/commerce/simplify.pay.js"); 
+      console.log($("#zipcode"))
+          $("#zipcode").on('keyup', function () {
+    var value=$("#zipcode").val();
+    setTimeout(function(){
+          if ($("#zipcode").val() == value)
+          {
+                 updateFilters(value);   
+                 $.getScript("https://www.simplify.com/commerce/simplify.pay.js");  
+          }
+    },500);
+      })
+        },
       url: "/getListings/80923"
     });
+
+    function updateFilters(zipcode) {
+    $.ajax({
+      type: "GET",
+      success: function(data) {
+        console.log(data)
+      $("#header-text").html(data.htmlToReturn);
+      },
+      url: "/filterListings/" + zipcode
+    });
+    }
   </script>
   </body>
   </html>

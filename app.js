@@ -106,6 +106,10 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 app.get('/', homeController.index);
 app.get('/allListings/', allListingsController.allListings);
 app.get('/postListing/', postListingController.postListing);
+app.get('/filterListings/:startDate/:endDate', allListingsController.filterListings);
+app.get('/filterListings/:zipcode', allListingsController.filterListings);
+app.get('/filterListings/', allListingsController.filterListings);
+app.get('/filterListings/:startDate/:endDate/:zipcode', allListingsController.filterListings);
 app.post('/postListing/:startDate/:endDate/:address/:city/:state/:zipcode/:price', postListingController.addListing);
 app.get('/getListings/:zipCode/', allListingsController.getListings);
 app.get('/getListings/:zipCode/:beginDate', allListingsController.getListings);

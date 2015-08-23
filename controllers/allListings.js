@@ -10,15 +10,22 @@ var zipcode = "94404";
 var beginDate = 1440302440;
 var endDate = 1442980839;
 
-var findDriveways = function(db, callback) {
-	// db.collection('driveways').insert( { "merchant_id": "1", "address": "111 addr", "city": "Berkeley", "zipcode": "94709", "date_begin": 1440476620, "date_end": 1440476820 } )
-   // var cursor = db.collection('driveways').find({ "zipcode": zipcode }, { "date_begin": { $lt : beginDate} }, { "date_end": {$gt: endDate } } );
-   var cursor = db.collection('driveways').find({});
+var findDriveways = function(db, zipcode, beginDate, endDate, callback) {
+  var now = new Date();
+  var nowEpoch = now.getTime();
+    beginDate = nowEpoch;
+    endDate = endDate || new Date(2020, 6, 26).getTime();
+    var zipHash = {};
+    if (zipcode) {
+      zipHash = { "zipcode": zipcode };
+    }
+    var cursor = db.collection('driveways').find(zipHash);
+   // var cursor = db.collection('driveways').find(zipHash, { "date_begin": { $lt : beginDate} }, { "date_end": {$gt: endDate } } );
    var htmlToReturn = "<div class='row items-container'>";
    cursor.each(function(err, doc) {
       assert.equal(err, null);
       if (doc != null) {
-      	htmlToReturn += "<div class='item-container col-xs-3'><img class='item-img' src='" + doc.photo_url + "'><div class='row'><div class='col-xs-4'>" + doc.city + "</div><div class='col-xs-4'>" + doc.zipcode + "</div><div class='col-xs-4'>" + doc.price + "</div><div class='item-btn'> <button data-sc-key='sbpb_YzBlMTI5ZDItMTljZC00OWVkLTkyNGEtY2Y4Zjg3NjcxODAw' data-name='MasterDrive' data-description='Rent parking at " + doc.zipcode + "' data-reference = '" + doc._id + "' data-amount= '" + 100 + "' data-color='#12B830 '> Reserve </button> </div></div></div>"
+      	htmlToReturn += "<div class='item-container'><img class='item-img' src='" + doc.photo_url + "'><div class='row'><div class='col-xs-4'>" + doc.city + "</div><div class='col-xs-4'>" + doc.zipcode + "</div><div class='col-xs-4'>$" + doc.price + "</div><div class='item-btn'> <button data-sc-key='sbpb_YzBlMTI5ZDItMTljZC00OWVkLTkyNGEtY2Y4Zjg3NjcxODAw' data-name='MasterDrive' data-description='Rent parking at " + doc.zipcode + "' data-reference = '" + doc._id + "' data-amount= '" + 100 + "' data-color='#12B830 '> Reserve </button> </div></div></div>"
       } else {
         htmlToReturn += "</div>"
          callback(htmlToReturn);
@@ -32,12 +39,23 @@ exports.allListings = function(req, res) {
   });
 };
 
+exports.filterListings = function(req, res) {
+  console.log("out")
+  MongoClient.connect(url, function(err, db) {
+    console.log("in");
+    assert.equal(null, err);
+    findDriveways(db, req.params.zipcode, req.params.startDate, req.params.endDate, function(doc) {
+      console.log(doc);
+      res.send({htmlToReturn: doc});
+    });
+  });
+};
+
+
 exports.getListings = function(req, res) {
-	console.log("out")
 	MongoClient.connect(url, function(err, db) {
-		console.log("in")
 	  assert.equal(null, err);
-	  findDriveways(db, function(doc) {
+	  findDriveways(db, null, req.params.startDate, req.params.endDate, function(doc) {
 	  	console.log(doc);
 	  	res.send({htmlToReturn: doc});
 	  });

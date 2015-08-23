@@ -15,7 +15,7 @@ var findMyDriveways = function(db, user, callback) {
    cursor.each(function(err, doc) {
       assert.equal(err, null);
       if (doc != null) {
-      	htmlToReturn += "<div class='item-container col-xs-3'><img class='item-img' src='" + doc.photo_url + "'><div class='row'><div class='col-xs-4'>" + doc.city + "</div><div class='col-xs-4'>" + doc.zipcode + "</div><div class='col-xs-4'>" + doc.price + "</div></div></div>"
+      	htmlToReturn += "<div class='item-container'><img class='item-img' src='" + doc.photo_url + "'><div class='row'><div class='col-xs-4'>" + doc.city + "</div><div class='col-xs-4'>" + doc.zipcode + "</div><div class='col-xs-4'>$" + doc.price + "</div></div></div>"
       } else {
           htmlToReturn += "</div>"
          callback(htmlToReturn);

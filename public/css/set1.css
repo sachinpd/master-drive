@@ -132,6 +132,7 @@
 
 /* Hoshi */
 .input--hoshi {
+	float: left;
 	overflow: hidden;
 }
 
