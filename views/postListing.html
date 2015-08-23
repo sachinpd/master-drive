@@ -1,6 +1,17 @@
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="css/main.css">
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="js/classie.js"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css" />
+   
+  <!-- Include Date Range Picker -->
+  <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/set1.css">
 </head>
 <body>
   <div class="container">
@@ -8,16 +19,50 @@
     </video>
     <div class="content-container">
       <div class="content-bar trans">
-        <div class="header-text">
-          <div class="header-title-container">
-            MasterDrive
-          </div>
-          <div class="header-divider"></div>
-          <div class="header-subtitle"><button class="flat-button">Find A Driveway</button></div>
+        <div class="header-content">
+                  <span class="input input--hoshi">
+            <!-- <input class="input__field input__field--hoshi" type="text" id="zipcode" /> -->
+            <input id="daterange" class="input__field input__field--hoshi" type="text" name="daterange" value="01/01/2015 - 01/31/2015" />
+            <label class="input__label input__label--hoshi" for="daterange">
+              <span id="input__label-content--hoshi" class="input__label-content input__label-content--hoshi">Date Range</span>
+            <script type="text/javascript">
+            $(function() {
+                $('input[name="daterange"]').daterangepicker({
+
+              }, 
+              function(start, end, label) {
+                  // $("#input__label-content--hoshi").html(start.format('YYYY-MM-DD') + " - " + end.format('YYYY-MM-DD'));
+              });
+            });
+            </script>
+            </label>
+          </span>
+          <span class="input input--hoshi">
+            <input class="input__field input__field--hoshi" type="text" id="address" />
+            <label class="input__label input__label--hoshi" for="address">
+              <span class="input__label-content input__label-content--hoshi">Address</span>
+            </label>
+          </span>
+          <span class="input input--hoshi">
+            <input class="input__field input__field--hoshi" type="text" id="city" />
+            <label class="input__label input__label--hoshi" for="city">
+              <span class="input__label-content input__label-content--hoshi">City</span>
+            </label>
+          </span>
+          <span class="input input--hoshi">
+            <input class="input__field input__field--hoshi" type="text" id="state" />
+            <label class="input__label input__label--hoshi" for="state">
+              <span class="input__label-content input__label-content--hoshi">State</span>
+            </label>
+          </span>
+          <span class="input input--hoshi">
+            <input class="input__field input__field--hoshi" type="text" id="zipcode" />
+            <label class="input__label input__label--hoshi" for="zipcode">
+              <span class="input__label-content input__label-content--hoshi">Zip Code</span>
+            </label>
+          </span>
+          <button class="flat-button emerald">Post Driveway</button>
         </div>
-      </div>
-      <div class="list-driveway">
-        <button class="flat-button turquoise">List your driveway</button>
       </div>
     </div>
   </body>
