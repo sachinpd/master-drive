@@ -19,7 +19,7 @@
       });
 
     // Set a click event listener on the Digits button.
-    $('.flat-button').click(onLoginButtonClick);
+      $('.flat-button.login').click(onLoginButtonClick);
   });
 
   /**

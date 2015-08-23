@@ -74,6 +74,12 @@
               <span class="input__label-content input__label-content--hoshi">Photo Url</span>
             </label>
           </span>
+          <span class="input input--hoshi">
+            <input class="input__field input__field--hoshi" type="text" id="price" />
+            <label class="input__label input__label--hoshi" for="price">
+              <span class="input__label-content input__label-content--hoshi">Price</span>
+            </label>
+          </span>
           <button class="flat-button emerald" id="post-driveway">Post Driveway</button>
           <script type="text/javascript">
             $(function() {
@@ -82,9 +88,10 @@
                   $.ajax({
                     type: "POST",
                     success: function(data) {
-                    $("#header-content").html("<h1 class='success-header'>Success! Your driveway has been posted</h1>");
+                    $("#header-content").html("<h1 class='success-header'>Success!</h1>" + data.htmlToReturn);
+                    $("#header-content").css("max-width", "100%");
                     },
-                    url: "/postListing/" + $("#startDate").val() + "/" + $("#endDate").val() + "/" + $("#address").val() + "/" + $("#city").val() + "/" + $("#state").val() + "/" + $("#zipcode").val()
+                    url: "/postListing/" + $("#startDate").val() + "/" + $("#endDate").val() + "/" + $("#address").val() + "/" + $("#city").val() + "/" + $("#state").val() + "/" + $("#zipcode").val() + "/" + $("#price").val()
                   });
               });
               });

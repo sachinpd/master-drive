@@ -1,10 +1,9 @@
 .input {
 	position: relative;
 	z-index: 1;
-	display: inline-block;
+	display: block;
 	margin: 1em;
 	max-width: 350px;
-	width: calc(14%);
 	vertical-align: top;
 }
 

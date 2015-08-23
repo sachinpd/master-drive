@@ -1,5 +1,8 @@
 <html>
 <head>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css" />
+
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
@@ -9,7 +12,7 @@
     <div class="content-container">
       <div class="content-bar trans">
         <div class="header-text" id="header-text">
-
+          {{htmlToReturn}}
         </div>
       </div>
     </div>
@@ -18,9 +21,9 @@
       type: "GET",
       success: function(data) {
         console.log(data)
-      $("#header-text").html("<h1 class='success-header'>Success! Your driveway has been posted</h1>");
+      $("#header-text").html(data.htmlToReturn);
       },
-      url: "/allListings/80923"
+      url: "/getListings/80923"
     });
   </script>
   </body>

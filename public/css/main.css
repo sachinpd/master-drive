@@ -22,12 +22,15 @@ body {
 .content-container {
   overflow-y: auto;
   overflow-x: hidden;
-  height: 100vh;
+  height: 100%;
+  min-height: calc(100vh + 10px);
+  background-color: rgba(34, 34, 34, 0.7);
 }
 
 .content-bar {
   min-height: auto;
-  height: 100vh;
+  height: 100%;
+  min-height: calc(100vh + 10px);
   position: relative;
 }
 
@@ -141,14 +144,6 @@ body {
   margin: auto;
 }
 
-.content-bar .video-icon-container .video-frame {
-  height: 100%;
-  width: 100%;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.15);
-  transition: all 0.5s ease;
-}
-
 .content-bar .video-icon-container .video-frame:hover {
   background-color: rgba(155, 0, 155, 0.3);
   color: #fff;
@@ -221,10 +216,6 @@ body {
 .modal-video {
   width: 100%;
   border-radius: 10px;
-}
-
-.trans.content-bar {
-  background-color: rgba(34, 34, 34, 0.7);
 }
 
 .trans.content-bar .project-title {
@@ -378,6 +369,7 @@ body {
   border-bottom: 2px solid #28be68;
   -webkit-box-shadow: inset 0 -2px #28be68;
   box-shadow: inset 0 -2px #28be68;
+  margin-bottom: 50px;
 }
 
 @media screen and (max-width: 750px) {
@@ -410,11 +402,11 @@ body {
 .header-content {
   position: absolute;
   top: 0;
-  bottom: 0;
   right: 0;
   left: 0;
   margin: auto;
   text-align: center;
-  width: 100%;
+  max-width: 350px;
+  width: 90%;
   height: 200px;
 }

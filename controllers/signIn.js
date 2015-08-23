@@ -20,11 +20,20 @@ exports.signIn = function(req, res) {
   });
 };
 
+exports.logout = function(req, res) {
+	req.session.user = null;
+  res.render('home', {
+    title: 'Home',
+    DIGITS_CONSUMER_KEY: nconf.get('DIGITS_CONSUMER_KEY'),
+    GA_TRACKING_ID: nconf.get('GA_TRACKING_ID'), 
+    user: null
+  });
+};
+
 /**
  * POST Digits login.
  */
 exports.digits = function (req, res) {
-	console.log("HELLO in digits")
   var apiUrl = req.body['apiUrl']
   var credentials = req.body['credentials']
   var verified = true;
@@ -81,18 +90,19 @@ exports.digits = function (req, res) {
       console.log(digits.id_str)
       MongoClient.connect(mongoUrl, function(err, db) {
 		  assert.equal(null, err);
+		  req.session.user = digits.id_str;
 		  insertUserIfNotThere(db, digits.id_str, function() {
 		      db.close();
 		  });
 		});
-      return res.send({
+      return res.render('allListings', {
         phoneNumber: digits.phone_number,
         userID: digits.id_str,
         error: ''
       });
     } else {
       // Send the error.
-      return res.send({
+      return res.render('allListings', {
         phoneNumber: '',
         userID: '',
         error: error.message

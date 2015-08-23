@@ -1,5 +1,6 @@
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
@@ -14,14 +15,32 @@
           </div>
           <div class="header-divider"></div>
           <div class="header-subtitle">
-            <a href="/allListings">
-              <button class="flat-button">Find A Driveway</button>
-            </a>
+              <button class="flat-button find login">Find A Driveway</button>
           </div>
         </div>
       </div>
       <div class="list-driveway">
-        <button class="flat-button turquoise">List your driveway</button>
+        <button class="flat-button turquoise list login">List your driveway</button>
+    <script>
+    var config = {
+      digitsConsumerKey: '<%= DIGITS_CONSUMER_KEY %>'
+    };
+  </script>
+  <script id="digits-sdk" src="https://cdn.digits.com/1/sdk.js" async></script>
+  <script src="/js/cannonball.js"></script>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  <% if (GA_TRACKING_ID) { %>
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '<%= GA_TRACKING_ID %>']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <% } %>
       </div>
     </div>
   </body>
