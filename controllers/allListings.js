@@ -19,7 +19,6 @@ var findDriveways = function(db, callback) {
       if (doc != null) {
       	console.log("in here")
          console.dir(doc);
-         callback(doc);
       } else {
          callback(doc);
       }
