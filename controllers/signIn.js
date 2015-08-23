@@ -61,6 +61,7 @@ exports.digits = function (req, res) {
   };
 
   var insertUserIfNotThere = function(db, fabric_id, callback) {
+  	console.log(db.collection('users').find({"fabric_id": fabric_id}).count())
 	if (db.collection('users').find({"fabric_id": fabric_id}).count() == 0) {
 		console.log("in insertion");
 	    db.collection('users').insert( { "fabric_id": fabric_id });
