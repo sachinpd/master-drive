@@ -3,17 +3,23 @@
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
+  <script>
+    $.ajax({
+      type: "GET",
+      success: function(data) {
+        console.log(data)
+      $("#header-text").html("<h1 class='success-header'>Success! Your driveway has been posted</h1>");
+      },
+      url: "/getListings/80923"
+    });
+  </script>
   <div class="container">
     <video class="background-video" muted autoplay loop src="videos/road.mp4">
     </video>
     <div class="content-container">
       <div class="content-bar trans">
-        <div class="header-text">
-          <div class="header-title-container">
-            MasterDrive
-          </div>
-          <div class="header-divider"></div>
-          <div class="header-subtitle"><button class="flat-button">Find A Driveway</button></div>
+        <div class="header-text" id="header-text">
+
         </div>
       </div>
       <div class="list-driveway">

@@ -402,8 +402,9 @@ body {
 }
 
 .success-header {
-  font-size: 20vw;
-  color: green;
+    font-size: 7vw;
+    color: rgb(100, 255, 0);
+    font-weight: 100;
 }
 
 .header-content {
