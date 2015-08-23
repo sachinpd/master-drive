@@ -2,7 +2,6 @@
  * GET /
  * All Listings page.
  */
-console.log("SHH")
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert')
 var ObjectId = require('mongodb').ObjectID;
@@ -18,10 +17,8 @@ var findDriveways = function(db, callback) {
    cursor.each(function(err, doc) {
       assert.equal(err, null);
       if (doc != null) {
-      	console.log("BING")
          console.dir(doc);
       } else {
-      	console.log("GRR")
          callback();
       }
    });

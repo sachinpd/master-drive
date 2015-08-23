@@ -22,15 +22,22 @@
         <div class="header-content">
                   <span class="input input--hoshi">
             <!-- <input class="input__field input__field--hoshi" type="text" id="zipcode" /> -->
-            <input id="daterange" class="input__field input__field--hoshi" type="text" name="daterange" value="01/01/2015 - 01/31/2015" />
+            <input id="daterange" class="input__field input__field--hoshi" type="text" name="daterange" />
             <label class="input__label input__label--hoshi" for="daterange">
               <span id="input__label-content--hoshi" class="input__label-content input__label-content--hoshi">Date Range</span>
+              <input type="hidden" id="startDate">
+              <input type="hidden" id="endDate">
             <script type="text/javascript">
+              $("#startDate").val((new Date).getTime());
+              $("#endDate").val((new Date).getTime());
             $(function() {
                 $('input[name="daterange"]').daterangepicker({
 
               }, 
               function(start, end, label) {
+                  $("#startDate").value = start;
+                  $("#endDate").value = end;
+
                   // $("#input__label-content--hoshi").html(start.format('YYYY-MM-DD') + " - " + end.format('YYYY-MM-DD'));
               });
             });
@@ -61,7 +68,18 @@
               <span class="input__label-content input__label-content--hoshi">Zip Code</span>
             </label>
           </span>
-          <button class="flat-button emerald">Post Driveway</button>
+          <button class="flat-button emerald" id="post-driveway">Post Driveway</button>
+          <script type="text/javascript">
+            $(function() {
+                $('#post-driveway').click( function(){
+                  console.log("submitting");
+                  $.ajax({
+                    type: "POST",
+                    url: "/postListing/" + $("#startDate").val() + "/" + $("#endDate").val() + "/" + $("#address").val() + "/" + $("#city").val() + "/" + $("#state").val() + "/" + $("#zipcode").val()
+                  });
+              });
+              });
+            </script>
         </div>
       </div>
     </div>
