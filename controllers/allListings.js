@@ -19,7 +19,7 @@ var findDriveways = function(db, zipcode, beginDate, endDate, callback) {
     if (zipcode) {
       zipHash = { "zipcode": zipcode };
     }
-    var cursor = db.collection('driveways').find(zipHash, {"consumer_id":0});
+    var cursor = db.collection('driveways').find($and: [zipHash, {"consumer_id":0}]);
    var htmlToReturn = "<div class='row items-container'>";
    cursor.each(function(err, doc) {
       assert.equal(err, null);
