@@ -19,13 +19,13 @@ var findDriveways = function(db, zipcode, beginDate, endDate, callback) {
     if (zipcode) {
       zipHash = { "zipcode": zipcode };
     }
-    var cursor = db.collection('driveways').find(zipHash);
-   // var cursor = db.collection('driveways').find(zipHash, { "date_begin": { $lt : beginDate} }, { "date_end": {$gt: endDate } } );
+    var cursor = db.collection('driveways').find(zipHash, {"consumer_id":0});
    var htmlToReturn = "<div class='row items-container'>";
    cursor.each(function(err, doc) {
       assert.equal(err, null);
       if (doc != null) {
-      	htmlToReturn += "<div class='item-container'><img class='item-img' src='" + doc.photo_url + "'><div class='row'><div class='col-xs-4'>" + doc.city + "</div><div class='col-xs-4'>" + doc.zipcode + "</div><div class='col-xs-4'>$" + doc.price + "</div><div class='item-btn'> <button data-sc-key='sbpb_YzBlMTI5ZDItMTljZC00OWVkLTkyNGEtY2Y4Zjg3NjcxODAw' data-name='MasterDrive' data-description='Rent parking at " + doc.zipcode + "' data-reference = '" + doc._id + "' data-amount= '" + 100 + "' data-color='#12B830 '> Reserve </button> </div></div></div>"
+      	htmlToReturn += "<div class='item-container'><img class='item-img' src='" + doc.photo_url + "'><div class='row'><div class='col-xs-4'>" + doc.city + "</div><div class='col-xs-4'>" + doc.zipcode + "</div><div class='col-xs-4'>$" + doc.price + "</div><div class='item-btn'> <button data-sc-key='sbpb_YzBlMTI5ZDItMTljZC00OWVkLTkyNGEtY2Y4Zjg3NjcxODAw' data-name='MasterDrive' data-description='Rent parking at " + doc.zipcode + "' data-reference = '" + doc._id + "' data-amount= '" + (doc.price*100) + "' data-color='#12B830 '> Reserve </button> </div></div></div>"
+        db.collection('driveways').updateOne({"address":doc.address},{$set:{"consumer_id":1}});      
       } else {
         htmlToReturn += "</div>"
          callback(htmlToReturn);
