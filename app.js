@@ -20,11 +20,20 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var assets = require('connect-assets');
+var fs = require('fs');
+var nconf = require('nconf');
+var url = require('url');
+var request = require('request');
 
 /**
  * Controllers (route handlers).
  */
 var homeController = require('./controllers/home');
+var myListingsController = require('./controllers/myListings');
+var postListingController = require('./controllers/postListing');
+var registerController = require('./controllers/register');
+var signInController = require('./controllers/signIn');
+var allListingsController = require('./controllers/allListings');
 var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
@@ -53,7 +62,9 @@ mongoose.connection.on('error', function() {
  */
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('view engine', 'jade');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 app.use(compress());
 app.use(assets({
   paths: ['public/css', 'public/js']
@@ -93,6 +104,11 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  * Primary app routes.
  */
 app.get('/', homeController.index);
+app.get('/allListings/', allListingsController.allListings);
+app.get('/allListings/:zipCode/', allListingsController.allListings);
+app.get('/allListings/:zipCode/:beginDate', allListingsController.allListings);
+app.get('/allListings/:zipCode/:beginDate/:endDate', allListingsController.allListings);
+app.post('/digits/', signInController.digits);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
