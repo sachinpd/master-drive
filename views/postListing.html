@@ -76,7 +76,7 @@
                   $.ajax({
                     type: "POST",
                     success: function(data) {
-                    $("#header-content").html("<h1 class='success-header>Success! Your driveway has been posted</h1>");
+                    $("#header-content").html("<h1 class='success-header'>Success! Your driveway has been posted</h1>");
                     },
                     url: "/postListing/" + $("#startDate").val() + "/" + $("#endDate").val() + "/" + $("#address").val() + "/" + $("#city").val() + "/" + $("#state").val() + "/" + $("#zipcode").val()
                   });
