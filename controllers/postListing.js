@@ -25,7 +25,7 @@ exports.postListing = function(req, res) {
 exports.addListing = function(req, res) {
 	MongoClient.connect(url, function(err, db) {
 	  assert.equal(null, err);
-	  console.log(req)
+	  console.log(req.body)
 	  postDriveway(db, req.startDate, req.endDate, req.address, req.city, req.state, req.zipcode);
 	});
   res.render('postListing', {
