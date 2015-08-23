@@ -3,8 +3,8 @@ var assert = require('assert')
 var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/masterdrive';
 
-var postDriveway = function(db, callback) {
-	db.collection('driveways').insert( { "merchant_id": "1", "address": "111 addr", "city": "Berkeley", "zipcode": "94709", "date_begin": 1440476620, "date_end": 1440476820 } )
+var postDriveway = function(db, startDate, endDate, address, city, state, zipcode, callback) {
+	db.collection('driveways').insert( { "merchant_id": "1", "address": address, "city": city, "zipcode": zipcode, "date_begin": parseInt(startDate), "date_end": parseInt(endDate) } )
 };
 
 /**
