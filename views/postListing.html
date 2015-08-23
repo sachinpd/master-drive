@@ -74,7 +74,7 @@
                 $('#post-driveway').click( function(){
                   console.log("submitting");
                   $.ajax({
-                    type: "POST",
+                    type: "GET",
                     url: "/postListing/" + $("#startDate").val() + "/" + $("#endDate").val() + "/" + $("#address").val() + "/" + $("#city").val() + "/" + $("#state").val() + "/" + $("#zipcode").val()
                   });
               });
