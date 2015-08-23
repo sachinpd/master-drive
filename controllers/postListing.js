@@ -4,6 +4,7 @@ var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/masterdrive';
 
 var postDriveway = function(db, startDate, endDate, address, city, state, zipcode, callback) {
+	console.log("posting")
 	db.collection('driveways').insert( { "merchant_id": "1", "address": address, "city": city, "zipcode": zipcode, "date_begin": parseInt(startDate), "date_end": parseInt(endDate) } )
 };
 
@@ -24,6 +25,7 @@ exports.postListing = function(req, res) {
 exports.addListing = function(req, res) {
 	MongoClient.connect(url, function(err, db) {
 	  assert.equal(null, err);
+	  console.log(req)
 	  postDriveway(db, req.startDate, req.endDate, req.address, req.city, req.state, req.zipcode);
 	});
   res.render('postListing', {
