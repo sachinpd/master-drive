@@ -401,6 +401,11 @@ body {
   }
 }
 
+.success-header {
+  font-size: 20vw;
+  color: green;
+}
+
 .header-content {
   position: absolute;
   top: 0;

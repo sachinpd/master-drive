@@ -19,7 +19,7 @@
     </video>
     <div class="content-container">
       <div class="content-bar trans">
-        <div class="header-content">
+        <div class="header-content" id="header-content">
                   <span class="input input--hoshi">
             <!-- <input class="input__field input__field--hoshi" type="text" id="zipcode" /> -->
             <input id="daterange" class="input__field input__field--hoshi" type="text" name="daterange" />
@@ -75,6 +75,9 @@
                   console.log("submitting");
                   $.ajax({
                     type: "POST",
+                    success: function(data) {
+                    $("#header-content").html("<h1 class='success-header>Success! Your driveway has been posted</h1>");
+                    },
                     url: "/postListing/" + $("#startDate").val() + "/" + $("#endDate").val() + "/" + $("#address").val() + "/" + $("#city").val() + "/" + $("#state").val() + "/" + $("#zipcode").val()
                   });
               });
