@@ -3,16 +3,6 @@
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-  <script>
-    $.ajax({
-      type: "GET",
-      success: function(data) {
-        console.log(data)
-      $("#header-text").html("<h1 class='success-header'>Success! Your driveway has been posted</h1>");
-      },
-      url: "/getListings/80923"
-    });
-  </script>
   <div class="container">
     <video class="background-video" muted autoplay loop src="videos/road.mp4">
     </video>
@@ -22,9 +12,16 @@
 
         </div>
       </div>
-      <div class="list-driveway">
-        <button class="flat-button turquoise">List Your Driveway</button>
-      </div>
     </div>
+      <script>
+    $.ajax({
+      type: "GET",
+      success: function(data) {
+        console.log(data)
+      $("#header-text").html("<h1 class='success-header'>Success! Your driveway has been posted</h1>");
+      },
+      url: "/allListings/80923"
+    });
+  </script>
   </body>
   </html>
