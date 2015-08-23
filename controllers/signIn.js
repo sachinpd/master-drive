@@ -64,7 +64,7 @@ exports.digits = function (req, res) {
   	db.collection("users").findAndModify(
     { "fabric_id": fabric_id },     // query
     [],               // represents a sort order if multiple matches
-    { $set: data },   // update statement
+    { $set: "" },   // update statement
     { new: true },    // options - new to return the modified document
     function(err,doc) {
     	console.log(err)
