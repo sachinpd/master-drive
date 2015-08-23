@@ -64,6 +64,7 @@
   function onDigitsSuccess(response) {
     console.log('Digits phone number retrieved.')
     setDigitsNumber(response.phoneNumber);
+    window.location = "/allListings";
   }
 
   /**
