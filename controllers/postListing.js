@@ -4,7 +4,7 @@ var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/masterdrive';
 
 var postDriveway = function(db, user, startDate, endDate, address, city, state, zipcode, callback, price) {
-	db.collection('driveways').insert( { "merchant_id": user, "address": address, "city": city, "zipcode": zipcode, "date_begin": parseInt(startDate), "date_end": parseInt(endDate), "photo_url": "http://www.angieslist.com/files/styles/no-dimensions/public/null/driveway_450.jpg?itok=xf2c0rip", "price": price } )
+	db.collection('driveways').insert( { "price": 100, "merchant_id": user, "address": address, "city": city, "zipcode": zipcode, "date_begin": parseInt(startDate), "date_end": parseInt(endDate), "photo_url": "http://www.angieslist.com/files/styles/no-dimensions/public/null/driveway_450.jpg?itok=xf2c0rip" } )
 };
 
 var findMyDriveways = function(db, user, callback) {
@@ -37,6 +37,7 @@ exports.postListing = function(req, res) {
  * Post Listing page.
  */
 exports.addListing = function(req, res) {
+  console.log(req.params)
 	MongoClient.connect(url, function(err, db) {
 	  assert.equal(null, err);
 	  postDriveway(db, req.session.user, req.params.startDate, req.params.endDate, req.params.address, req.params.city, req.params.state, req.params.zipcode, req.params.price);
