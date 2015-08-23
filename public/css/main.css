@@ -19,6 +19,14 @@ body {
   z-index: -1;
 }
 
+.background-still {
+  background-image: url("/images/stillbg.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 .content-container {
   overflow-y: auto;
   overflow-x: hidden;
