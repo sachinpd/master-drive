@@ -33,7 +33,9 @@ exports.allListings = function(req, res) {
 };
 
 exports.getListings = function(req, res) {
+	console.log("out")
 	MongoClient.connect(url, function(err, db) {
+		console.log("in")
 	  assert.equal(null, err);
 	  findDriveways(db, function(doc) {
 	      return res.json(doc);
