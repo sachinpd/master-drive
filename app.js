@@ -86,7 +86,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use(lusca({
-  csrf: true,
+  csrf: false,
   xframe: 'SAMEORIGIN',
   xssProtection: true
 }));
@@ -108,6 +108,7 @@ app.get('/allListings/', allListingsController.allListings);
 app.get('/allListings/:zipCode/', allListingsController.allListings);
 app.get('/allListings/:zipCode/:beginDate', allListingsController.allListings);
 app.get('/allListings/:zipCode/:beginDate/:endDate', allListingsController.allListings);
+app.get('/signIn/', signInController.signIn);
 app.post('/digits/', signInController.digits);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);

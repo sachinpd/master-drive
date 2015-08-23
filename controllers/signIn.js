@@ -2,9 +2,21 @@
  * GET /
  * Sign in page.
  */
+ var nconf = require('nconf');
+ var url = require('url');
+ var request = require('request');
+ var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert')
+var ObjectId = require('mongodb').ObjectID;
+var mongoUrl = 'mongodb://localhost:27017/masterdrive';
+nconf.env();
+nconf.file({ file: 'config.json' });
+
 exports.signIn = function(req, res) {
   res.render('signIn', {
-    title: 'Sign In'
+    title: 'Sign In',
+    DIGITS_CONSUMER_KEY: nconf.get('DIGITS_CONSUMER_KEY'),
+    GA_TRACKING_ID: nconf.get('GA_TRACKING_ID')
   });
 };
 
@@ -12,6 +24,7 @@ exports.signIn = function(req, res) {
  * POST Digits login.
  */
 exports.digits = function (req, res) {
+	console.log("HELLO in digits")
   var apiUrl = req.body['apiUrl']
   var credentials = req.body['credentials']
   var verified = true;
@@ -47,11 +60,28 @@ exports.digits = function (req, res) {
     }
   };
 
+  var insertUserIfNotThere = function(db, fabric_id, callback) {
+		// db.collection('driveways').insert( { "merchant_id": "1", "address": "111 addr", "city": "Berkeley", "zipcode": "94709", "date_begin": 1440476620, "date_end": 1440476820 } )
+		db.collection('users').findAndModify({
+		  query: { "fabric_id": fabric_id },
+		  new: true,   // return new doc if one is upserted
+		  upsert: true // insert the document if it does not exist
+		})
+	};
+
   // Perform the request to the Digits API.
   request.get(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       // Send the verified phone number and Digits user ID.
       var digits = JSON.parse(body)
+      console.log(digits.phone_number);
+      console.log(digits.id_str)
+      MongoClient.connect(mongoUrl, function(err, db) {
+		  assert.equal(null, err);
+		  insertUserIfNotThere(db, digits.id_str, function() {
+		      db.close();
+		  });
+		});
       return res.send({
         phoneNumber: digits.phone_number,
         userID: digits.id_str,
