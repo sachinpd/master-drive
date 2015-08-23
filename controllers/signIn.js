@@ -63,6 +63,7 @@ exports.digits = function (req, res) {
   var insertUserIfNotThere = function(db, fabric_id, callback) {
 	var cursor = db.collection('users').find({"fabric_id": fabric_id});
 	   cursor.each(function(err, doc) {
+	   	console.log(cursor);
 	      if (doc == null) {
 	      	console.log("in insertion");
 	      		db.collection('users').insert( { "fabric_id": fabric_id });
