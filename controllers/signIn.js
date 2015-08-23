@@ -64,7 +64,8 @@ exports.digits = function (req, res) {
 	var cursor = db.collection('users').find({"fabric_id": fabric_id});
 	   cursor.each(function(err, doc) {
 	      if (doc == null) {
-	      		db.collection('driveways').insert( { "fabric_id": fabric_id });
+	      	console.log("in insertion");
+	      		db.collection('users').insert( { "fabric_id": fabric_id });
 	      }
 	   });	
 	};
