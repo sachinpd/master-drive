@@ -21,12 +21,14 @@
             <button class="flat-button turquoise list">List your driveway</button>
             </a>
         </div>
+     </div>
       <script>
     $.ajax({
       type: "GET",
       success: function(data) {
         console.log(data)
       $("#header-text").html(data.htmlToReturn);
+      $.getScript("https://www.simplify.com/commerce/simplify.pay.js");	
       },
       url: "/getListings/80923"
     });

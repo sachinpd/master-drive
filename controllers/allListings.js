@@ -18,7 +18,7 @@ var findDriveways = function(db, callback) {
    cursor.each(function(err, doc) {
       assert.equal(err, null);
       if (doc != null) {
-      	htmlToReturn += "<div class='row'><div class='col-xs-3'><img width='300' src='" + doc.photo_url + "'></div><div class='col-xs-3'>" + doc.city + "</div><div class='col-xs-2'>" + doc.zipcode + "</div><div class='col-xs-1'>" + doc.price + "</div><div class='col-xs-3'><a src='purchase/1/" + doc._id + "''><img src='http://www.pickmytickets.com/images/cart.png'></a></div></div>"
+      	htmlToReturn += "<div class='row'><div class='col-xs-3'><img width='300' src='" + doc.photo_url + "'></div><div class='col-xs-3'>" + doc.city + "</div><div class='col-xs-2'>" + doc.zipcode + "</div><div class='col-xs-1'>" + doc.price + "</div><div class='col-xs-3'> <button data-sc-key='sbpb_YzBlMTI5ZDItMTljZC00OWVkLTkyNGEtY2Y4Zjg3NjcxODAw' data-name='MasterDrive' data-description='Rent parking at " + doc.zipcode + "' data-reference = '" + doc._id + "' data-amount= '" + doc.price + "' data-color='#12B830 '> Reserve </button> </div></div>"
       } else {
          callback(htmlToReturn);
       }
@@ -41,4 +41,11 @@ exports.getListings = function(req, res) {
 	  	res.send({htmlToReturn: doc});
 	  });
 	});
+};
+
+exports.purchase= function(req, res) {
+  console.log("called");
+  res.render('purchase', {
+    title: 'Rent It'
+  });
 };
