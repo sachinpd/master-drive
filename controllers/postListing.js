@@ -11,12 +11,13 @@ var findMyDriveways = function(db, user, callback) {
 	// db.collection('driveways').insert( { "merchant_id": "1", "address": "111 addr", "city": "Berkeley", "zipcode": "94709", "date_begin": 1440476620, "date_end": 1440476820 } )
    // var cursor = db.collection('driveways').find({ "zipcode": zipcode }, { "date_begin": { $lt : beginDate} }, { "date_end": {$gt: endDate } } );
    var cursor = db.collection('driveways').find({"merchant_id": user});
-   var htmlToReturn = "";
+   var htmlToReturn = "<div class='row items-container'>";
    cursor.each(function(err, doc) {
       assert.equal(err, null);
       if (doc != null) {
-      	htmlToReturn += "<div class='row'><div class='col-xs-3'><img width='300' src='" + doc.photo_url + "'></div><div class='col-xs-3'>" + doc.city + "</div><div class='col-xs-2'>" + doc.zipcode + "</div><div class='col-xs-1'>" + doc.price + "</div><div class='col-xs-3'><a src='purchase/1/" + doc._id + "'><img width='45px' src='https://cdn4.iconfinder.com/data/icons/simplicio/128x128/file_delete.png'></a></div></div>"
+      	htmlToReturn += "<div class='item-container col-xs-3'><img class='item-img' src='" + doc.photo_url + "'><div class='row'><div class='col-xs-4'>" + doc.city + "</div><div class='col-xs-4'>" + doc.zipcode + "</div><div class='col-xs-4'>" + doc.price + "</div></div></div>"
       } else {
+          htmlToReturn += "</div>"
          callback(htmlToReturn);
       }
    });
